@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="<%= lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= article.title[lang] %></title>
+    <meta name="description" content="<%= article.description[lang] %>">
+    <%- article.metaTags[lang] %>
+    <link rel="alternate" href="<%= url %>/en/<%= article.slug %>" hreflang="en" />
+    <link rel="alternate" href="<%= url %>/ru/<%= article.slug %>" hreflang="ru" />
+    <link rel="shortcut icon" type="image/x-icon" href="<%= url %>/public/static/images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<%= url %>/public/static/css/reset.css">
+    <link rel="stylesheet" href="<%= url %>/public/static/css/index.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header-container">
+            <div class="header">
+                <div class="logo-container">
+                    <a class="logo" href="<%= url %>/<%= lang == 'en' ? '' : lang %>">
+                        <img src="<%= url %>/public/static/images/lolguide-logo.svg" alt="logo">
+                    </a>
+                </div>
+                <div class="search-container">
+                    <div class="search-input-wrapper"> 
+                        <input class="search-input" type="text" placeholder="<%= i18n.header.search[lang] %>">
+                        <input class="search-input-mobile" type="text" placeholder="<%= i18n.header.searchMobile[lang] %>">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="content-wrapper">
+            <div class="content">
+                <div role="img" title="<%= article.champion?.name?.[lang] ?? '' %>" aria-label="<%= article.champion?.name?.[lang] ?? '' %>" class="content-header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(<%= url %>/<%= article.imageUrl %>)">
+                    <img src="" alt="<%= article.champion?.name?.[lang] ?? '' %>" class="alt-image"/>
+                    <div class="content-header-title">
+                        <h1> <%= article.headerTitle[lang] %> </h1>
+                        <h2><%= article.headerSubtitle[lang] %></h2>
+                    </div>
+                </div>
+                <% for(const [index, section] of article.sections.entries()) {%>
+                    <div class="section" id="section-<%= index + 1 %>">
+                        <h2 class="section-title">
+                            <%= section.title[lang] %>
+                        </h2>
+                        <% for(const block of section.blocks) {%>
+                            <%- block %>
+                        <% } %>
+                    </div>
+                <% } %>
+                <div class="section">
+                    <div class="banner" style="background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(<%= url %>/public/static/images/syndra.webp)">
+                        <div class="banner-left">
+                            <h2 class="banner-title">
+                                <%= i18n.mainPage.bannerTitle[lang] %>
+                            </h2>
+                            <span class="banner-text">
+                                <%= i18n.mainPage.bannerText[lang] %>                
+                            </span>
+                        </div>
+                        <div class="banner-right">
+                            <button class="banner-button">
+                                <%= i18n.mainPage.bannerButton[lang] %>
+                            </button>
+                        </div>
+                    </div>
+                            
+                </div>
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-navigation">
+                    <div class="nav-title"><%= article.headerTitle[lang] %></div>
+                    <div class="divider"></div>
+                    <div class="nav-items-wrapper">
+                        <% for(const [index, section] of article.sections.entries()) {%>
+                            <div class="nav-item">
+                                <a href="#section-<%= index + 1 %>">
+                                    <div class="link">
+                                        <div><%= index + 1%>)</div> <div class="underlined"><%= section.title[lang] %></div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-container">
+        <div class="footer">
+            <div class="footer-left">
+                <span class="copyright">
+                    Copyright 2023 © LoLGuide
+                </span>
+            </div>
+            <div class="footer-right">      
+                <select id="lang-select">
+                    <option value="en" <%= lang == 'en' ? "selected" : "" %> >English</option>
+                    <option value="ru" <%= lang == 'ru' ? "selected" : "" %> >Русский</option>
+                </select>
+                <div class="socials">
+                    <a href="https://twitter.com/LoLGuides" class="social-item" target="_blank" rel="me">                            
+                        <img src="<%= url %>/public/static/images/twitter.svg" alt="twitter">              
+                    </a>
+                    <a href="#" class="social-item" target="_blank" rel="noopener">                            
+                        <img src="<%= url %>/public/static/images/facebook.svg" alt="facebook">              
+                    </a>
+                    <a href="mailto:lolguides.business@gmail.com" class="social-item">                            
+                        <img src="<%= url %>/public/static/images/mail.svg" alt="mail">              
+                    </a>
+                    <a href="https://www.youtube.com/@lolguides_space" class="social-item" target="_blank" rel="me">                             
+                        <img src="<%= url %>/public/static/images/youtube.svg" alt="youtube">              
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="url" style="display: none;" data=<%= url %>></div>
+    <div id="lang" style="display: none;" data=<%= lang %>></div>
+    <noscript id="deferred-styles">
+        <link rel="stylesheet" type="text/css" href="<%= url %>/public/static/css/tooltip.css"/>
+    </noscript>
+    <script>
+        var loadDeferredStyles = function() {
+            var addStylesNode = document.getElementById("deferred-styles");
+            var replacement = document.createElement("div");
+            replacement.innerHTML = addStylesNode.textContent;
+            document.body.appendChild(replacement)
+            addStylesNode.parentElement.removeChild(addStylesNode);
+        };
+        var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+        else window.addEventListener('load', loadDeferredStyles);
+    </script>
+    <!-- Local copy -->
+    <!-- <script src="<%= url %>/public/static/js/popper.min.js"></script> -->
+    <!-- <script src="<%= url %>/public/static/js/tippy-bundle.umd.js"></script> -->
+
+    <!-- Development -->
+    <!--<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>-->
+    <!--<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>-->
+
+    <!-- Production -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="<%= url %>/public/static/js/script.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQFTHLLC6J"></script>
+    <script async src="<%= url %>/public/static/js/gtag.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="<%= lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= metaTitle[lang] %></title>
+    <meta name="description" content="<%= description[lang] %>">
+    <meta name="yandex-verification" content="6a7002655aa04451" />
+    <link rel="canonical" href="<%= url %>/<%= lang == 'en' ? '' : lang %>" />
+    <link rel="alternate" href="<%= url %>" hreflang="en" />
+    <link rel="alternate" href="<%= url %>/ru" hreflang="ru" />
+    <link rel="shortcut icon" type="image/x-icon" href="<%= url %>/public/static/images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<%= url %>/public/static/css/reset.css">
+    <link rel="stylesheet" href="<%= url %>/public/static/css/index.css">
+</head>
+<body>
+    <div class="container guides-page">
+        <header class="header-container">
+            <div class="header">
+                <div class="logo-container">
+                    <a class="logo" href="<%= url %>/<%= lang == 'en' ? '' : lang %>">
+                        <img src="<%= url %>/public/static/images/lolguide-logo.svg" alt="logo">
+                    </a>
+                </div>
+                <div class="search-container">
+                    <div class="search-input-wrapper"> 
+                        <input class="search-input" type="text" placeholder="<%= i18n.header.search[lang] %>">
+                        <input class="search-input-mobile" type="text" placeholder="<%= i18n.header.searchMobile[lang] %>">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="section first-section">
+                    <h2 class="section-title">
+                        <%= title[lang] %>
+                    </h2>
+                    <div class="champions-container">
+                      <% for(const article of articles) {%>
+                        <a href="<%= url %>/<%= lang %>/<%= article.slug %>" class="champion-item">
+                          <img src="<%= article.champion.image %>" />
+                          <span class="champion-description">
+                            <%= article.champion.name[lang] %>
+                          </span>
+                        </a>  
+                     
+                      <% } %>
+                    </div>     
+                    <div class="in-development-block">
+                      <h2> <%= i18n.guidesPage.inDevelopment[lang] %></h2>
+                    </div>        
+                </div>
+                <div class="section">
+                  <div class="banner" style="background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(<%= url %>/public/static/images/syndra.webp)">
+                      <div class="banner-left">
+                          <h2 class="banner-title">
+                              <%= i18n.mainPage.bannerTitle[lang] %>
+                          </h2>
+                          <span class="banner-text">
+                              <%= i18n.mainPage.bannerText[lang] %>                
+                          </span>
+                      </div>
+                      <div class="banner-right">
+                          <button class="banner-button">
+                              <%= i18n.mainPage.bannerButton[lang] %>
+                          </button>
+                      </div>
+                  </div>
+                          
+              </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-container">
+        <div class="footer">
+            <div class="footer-left">
+                <span class="copyright">
+                    Copyright 2023 © LoLGuide
+                </span>
+            </div>
+            <div class="footer-right">      
+                <select id="lang-select">
+                    <option value="en" <%= lang == 'en' ? "selected" : "" %> >English</option>
+                    <option value="ru" <%= lang == 'ru' ? "selected" : "" %> >Русский</option>
+                </select>
+                <div class="socials">
+                    <a href="https://twitter.com/LoLGuides" class="social-item" target="_blank" rel="me">                            
+                        <img src="<%= url %>/public/static/images/twitter.svg" alt="twitter">              
+                    </a>
+                    <a href="#" class="social-item" target="_blank" rel="noopener">                            
+                        <img src="<%= url %>/public/static/images/facebook.svg" alt="facebook">              
+                    </a>
+                    <a href="mailto:lolguides.business@gmail.com" class="social-item">                            
+                        <img src="<%= url %>/public/static/images/mail.svg" alt="mail">              
+                    </a>
+                    <a href="https://www.youtube.com/@lolguides_space" class="social-item" target="_blank" rel="me">                             
+                        <img src="<%= url %>/public/static/images/youtube.svg" alt="youtube">              
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="url" style="display: none;" data=<%= url %>></div>
+    <div id="lang" style="display: none;" data=<%= lang %>></div>
+
+    <!-- Development -->
+    <!--<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>-->
+    <!--<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>-->
+
+    <!-- Production -->
+    <!-- <script src="https://unpkg.com/@popperjs/core@2"></script>-->
+    <!-- <script src="https://unpkg.com/tippy.js@6"></script>-->
+    <script src="<%= url %>/public/static/js/script.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQFTHLLC6J"></script>
+    <script async src="<%= url %>/public/static/js/gtag.js"></script>
+</body>
+</html>
