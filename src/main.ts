@@ -6,6 +6,7 @@ import {ConfigService} from "./config/config.service";
 import { AllExceptionsFilter } from './all-exceptions.filter';
 import multipart from "@fastify/multipart";
 import { NotFoundExceptionFilter } from './not-found-exception.filter';
+import {existsSync, mkdirSync} from "fs";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -44,6 +45,11 @@ async function bootstrap() {
     },
     templates: join(__dirname, '..', 'views'),
   });
+
+  const jsonPath = join(process.cwd(), "public/storage/json")
+  if (!existsSync(jsonPath)) {
+    mkdirSync(jsonPath);
+  }
 
   await app.listen(config.get('PORT'), () => {
     console.log(`App started on port ${config.get('PORT')}`)

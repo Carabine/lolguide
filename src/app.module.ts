@@ -9,6 +9,7 @@ import {BlocksModule} from "./blocks/blocks.module";
 import {SectionsModule} from "./sections/sections.module";
 import {RiotModule} from "./riot/riot.module";
 import {HtmlModule} from "./html/html.module";
+import {JsonModule} from "./json/json.module";
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import {HtmlModule} from "./html/html.module";
     MediaModule,
     SectionsModule,
     BlocksModule,
-    HtmlModule
+    HtmlModule,
+    JsonModule
   ],
   controllers: [],
   providers: [],

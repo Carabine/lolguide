@@ -8,6 +8,9 @@
 # DB
 #lolguide.db
 
+#env
+.env.prod
+
 # Logs
 logs
 *.log
